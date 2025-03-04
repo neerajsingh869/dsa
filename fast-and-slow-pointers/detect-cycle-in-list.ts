@@ -1,8 +1,11 @@
 import {
   arrayToLinkedList,
+  getLength,
+  getNode,
   ListNode,
   printLinkedList,
-} from "../utils/linked-list";
+  printLinkedListLoop,
+} from "../utils/linked-list-function-way";
 
 /**
  * PROBLEM LINK: https://leetcode.com/problems/linked-list-cycle/description/
@@ -60,20 +63,39 @@ function hasCycle(head: ListNode | null): boolean {
 }
 
 // Driver code
-const inputs = [
-  [0, 1, 0],
-  [1, 1, 0, 2],
-  [2, 1, 1, 0, 0],
-  [2, 2, 2, 0, 1, 0],
-  [2, 1, 1, 0, 1, 0, 2],
-];
+function main() {
+  const input = [
+    [2, 4, 6, 8, 10, 12],
+    [1, 3, 5, 7, 9, 11],
+    [0, 1, 2, 3, 4, 6],
+    [3, 4, 7, 9, 11, 17],
+    [5, 1, 4, 9, 2, 3],
+  ];
 
-for (let i = 0; i < inputs.length; i++) {
-  const inputLinkedList = arrayToLinkedList(inputs[i]);
-  console.log(i + 1 + ".\tLinked List:\t\t", printLinkedList(inputLinkedList));
+  const pos = [0, -1, 1, -1, 2];
 
-  let result = hasCycle(inputLinkedList);
+  for (let i = 0; i < input.length; i++) {
+    const inputLinkedList = arrayToLinkedList(input[i]);
 
-  console.log("\tHas Cycle:\t", result);
-  console.log("-".repeat(100));
+    console.log(i + 1 + ".\tInput:");
+    if (pos[i] === -1) {
+      console.log("\t", printLinkedList(inputLinkedList));
+    } else {
+      console.log("\t", printLinkedListLoop(inputLinkedList));
+    }
+
+    console.log("\tpos: ", pos[i]);
+    if (pos[i] != -1) {
+      const length = getLength(inputLinkedList);
+      let lastNode = getNode(inputLinkedList, length - 1);
+      lastNode!.next = getNode(inputLinkedList, pos[i]);
+    }
+
+    const result = hasCycle(inputLinkedList) ? "True" : "False";
+
+    console.log("\n\tHas cycle =", result);
+    console.log("-".repeat(100), "\n");
+  }
 }
+
+main();
