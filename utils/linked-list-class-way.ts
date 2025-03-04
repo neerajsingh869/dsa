@@ -17,12 +17,8 @@ class LinkedList {
 
   // Method to insert linked list node at head
   private insertNodeAtHead = function (node: ListNode) {
-    if (this.head != null) {
-      node.next = this.head;
-      this.head = node;
-    } else {
-      this.head = node;
-    }
+    node.next = this.head;
+    this.head = node;
   };
 
   // Method to create the linked list using given integer array
@@ -46,9 +42,11 @@ class LinkedList {
   };
 
   // Method that returns the node at the specified position(index) of the linked list
-  getNode = function (head: ListNode | null, pos: number): ListNode | null {
+  getNode = function (head: ListNode | null, pos: number): ListNode | null | undefined {
     if (pos >= this.getLength(head) || pos < 0) {
-      return null;
+      // Return undefined since the index does not exist
+      // Will help the caller method to diagnose the issue
+      return undefined;
     }
 
     let current = head;
@@ -65,14 +63,14 @@ class LinkedList {
 
     let temp = this.head;
     while (temp != null) {
-      result += temp.data;
+      result += temp.val;
       temp = temp.next;
       if (temp != null) {
         result += ", ";
       }
     }
     result += "";
-    
+
     return result;
   };
 }
