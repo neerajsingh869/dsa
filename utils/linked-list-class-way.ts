@@ -23,10 +23,10 @@ class LinkedList {
 
   // Method to create the linked list using given integer array
   arrayToLinkedList = function (input: number[]) {
-    input.reverse().forEach((element) => {
-      let newNode = new ListNode(element);
+    for (let i = input.length - 1; i >= 0; i--) {
+      let newNode = new ListNode(input[i]);
       this.insertNodeAtHead(newNode);
-    });
+    }
   };
 
   // Method that returns the number of nodes in linked list
