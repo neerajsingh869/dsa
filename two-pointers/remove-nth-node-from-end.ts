@@ -2,7 +2,7 @@ import {
   arrayToLinkedList,
   ListNode,
   printLinkedList,
-} from "../utils/linked-list";
+} from "../utils/linked-list-function-way";
 
 /**
  * PROBLEM LINK: https://leetcode.com/problems/remove-nth-node-from-end-of-list/description/
@@ -34,6 +34,7 @@ import {
  * @param n
  * TC = O(k)  k = length of linked list
  * SC = O(1)
+ * Single Pass
  * @returns
  */
 function removeNthNodeFromEnd(
@@ -69,7 +70,9 @@ function removeNthNodeFromEnd(
    * Update the left.next to point to left.next.next,
    * which in turn removes nth node
    */
-  left!.next = left!.next!.next;
+  if (left != null && left.next != null) {
+    left.next = left.next.next;
+  }
 
   // Return head
   return head;
