@@ -50,3 +50,25 @@ function search(nums: number[], target: number): number {
 
   return -1;
 }
+
+// Driver code
+function main() {
+  const inputs = [[1, 3, 5, 10, 12], [2, 10, 20, 40], [3], [4, 5]];
+  const targets = [5, 100, 3, 5];
+
+  for (let i = 0; i < targets.length; i++) {
+    console.log(
+      i + 1,
+      ".\tInput:",
+      "[" + inputs[i].join(", ") + "]",
+      "\n\tTarget:",
+      targets[i],
+      "\n\tIndex:",
+      search(inputs[i], targets[i])
+    );
+
+    console.log("-".repeat(100));
+  }
+}
+
+main();
