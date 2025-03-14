@@ -53,18 +53,18 @@ function search(nums: number[], target: number): number {
 
 // Driver code
 function main() {
-  const inputs = [[1, 3, 5, 10, 12], [2, 10, 20, 40], [3], [4, 5]];
-  const targets = [5, 100, 3, 5];
+  const numsLists = [[1, 3, 5, 10, 12], [2, 10, 20, 40], [3], [4, 5]];
+  const targetList = [5, 100, 3, 5];
 
-  for (let i = 0; i < targets.length; i++) {
+  for (let i = 0; i < targetList.length; i++) {
     console.log(
-      i + 1,
-      ".\tInput:",
-      "[" + inputs[i].join(", ") + "]",
+      i + 1 + ".",
+      "\tInput:",
+      "[" + numsLists[i].join(", ") + "]",
       "\n\tTarget:",
-      targets[i],
+      targetList[i],
       "\n\tIndex:",
-      search(inputs[i], targets[i])
+      search(numsLists[i], targetList[i])
     );
 
     console.log("-".repeat(100));
