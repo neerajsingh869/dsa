@@ -2,7 +2,7 @@ import {
   arrayToLinkedList,
   ListNode,
   printLinkedList,
-} from "../utils/linked-list";
+} from "../utils/linked-list-function-way";
 
 /**
  * PROBLEM LINK: https://leetcode.com/problems/middle-of-the-linked-list/description/
