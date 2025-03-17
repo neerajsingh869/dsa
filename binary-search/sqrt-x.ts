@@ -24,9 +24,11 @@
   0 <= x <= 231 - 1
  */
 
+// NOTE: Integer square root of x <= x / 2 for x >= 2
+
 /**
  * @param x
- * TC = O(x)
+ * TC = O(sqrt(x))
  * SC = O(1)
  * @returns
  */
@@ -53,13 +55,30 @@ function mySqrt1(x: number): number {
 
 /**
  * @param x
+ * TC = O(sqrt(x))
+ * SC = O(1)
+ * @returns
+ */
+function mySqrt2(x: number): number {
+  if (x < 2) return x;
+
+  let i = 1;
+  while (i * i <= x) {
+    i++;
+  }
+
+  return i - 1; // Return the floor of the square root
+}
+
+/**
+ * @param x
  * TC = O(log(x))
  * SC = O(1)
  * Similar to finding last position of element in
  * sorted array problem (with little twist)
  * @returns
  */
-function mySqrt2(x: number): number {
+function mySqrt3(x: number): number {
   if (x < 2) return x; // Handle edge cases for 0 and 1
 
   let ans = 1;
@@ -67,23 +86,10 @@ function mySqrt2(x: number): number {
   let low = 1;
   // let high = x;
   let high = Math.floor(x / 2); // Reduce search space
-  
+
   while (low <= high) {
     const mid = low + Math.floor((high - low) / 2);
 
-    /** Shorter way (less readable) */
-    // if (mid <= Math.floor(x / mid)) {
-    //   if (mid === Math.floor(x / mid)) {
-    //     return mid;
-    //   }
-
-    //   ans = mid;
-    //   low = mid + 1;
-    // } else {
-    //   high = mid - 1;
-    // }
-
-    /** Little longer way (but more readable) */
     if (mid === Math.floor(x / mid)) {
       /** or (mid * mid === x) since division operation
        * is more expensive but there is chance of overflow */
@@ -124,8 +130,5 @@ function mySqrt(x: number): number {
     }
   }
 
-  /** high represents the largest number that
-   * can be square root of x
-   */
-  return high;
+  return high; // Return the floor of the square root
 }
