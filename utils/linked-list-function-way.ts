@@ -1,6 +1,7 @@
 export interface ListNode {
   val: number;
   next: ListNode | null;
+  visited?: boolean;
 }
 
 // Function to return linked list in readable format
