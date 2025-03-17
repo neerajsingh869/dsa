@@ -43,7 +43,82 @@ import {
 /**
  * @param head
  * TC = O(n)
+ * SC = O(n)
+ * @returns
+ */
+// If a node is encountered that is already in the set, a cycle exists.
+function hasCycle1(head: ListNode | null): boolean {
+  const visited = new Set<ListNode>();
+  let current = head;
+
+  while (current !== null) {
+    if (visited.has(current)) {
+      return true; // Cycle detected
+    }
+    visited.add(current);
+    current = current.next;
+  }
+
+  return false; // No cycle found
+}
+
+/**
+ * @param head
+ * TC = O(n)
+ * SC = O(n)
+ * Destroys the original structure of the linked list.
+ * @returns
+ */
+// If a marked node is encountered, a cycle exists.
+function hasCycle2(head: ListNode | null): boolean {
+  let current = head;
+
+  while (current !== null) {
+      if (current.visited) {
+          return true; // Cycle detected
+      }
+      current.visited = true; // Mark the node
+      current = current.next;
+  }
+
+  return false; // No cycle found
+}
+
+/**
+ * @param head
+ * TC = O(n)
  * SC = O(1)
+ * Destroys the original structure of the linked list.
+ * @returns
+ */
+// If there is a cycle, the reversal will eventually bring you back to the head.
+function hasCycle3(head: ListNode | null): boolean {
+  if (head === null || head.next === null) {
+      return false;
+  }
+
+  let prev: ListNode | null = null;
+  let current: ListNode | null = head;
+
+  while (current !== null) {
+      const next = current.next;
+      current.next = prev;
+      prev = current;
+      current = next;
+
+      if (current === head) {
+          return true; // Cycle detected
+      }
+  }
+
+  return false; // No cycle found
+}
+
+/**
+ * @param head
+ * TC = O(n)
+ * SC = O(1)
+ * Optimal solution
  * @returns
  */
 function hasCycle(head: ListNode | null): boolean {
