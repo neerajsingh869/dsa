@@ -42,46 +42,30 @@
  * @returns
  */
 function search1(nums: number[], target: number): number {
-  let n = nums.length;
+  const n = nums.length;
+
   let low = 0;
   let high = n - 1;
-
   while (low <= high) {
-    let mid = low + Math.floor((high - low) / 2);
+    const mid = low + Math.floor((high - low) / 2);
 
-    // Array is not rotated
-    if (nums[high] >= nums[low]) {
-      if (nums[mid] === target) {
-        return mid;
-      } else if (nums[mid] > target) {
+    if (nums[mid] === target) {
+      return mid;
+    }
+
+    // Target is in first half
+    if (target >= nums[low]) {
+      if (nums[mid] < target && nums[mid] >= nums[low]) {
+        low = mid + 1;
+      } else {
+        high = mid - 1;
+      }
+    } else {
+      // Target is in second half
+      if (nums[mid] > target && nums[mid] <= nums[high]) {
         high = mid - 1;
       } else {
         low = mid + 1;
-      }
-    } else {
-      // Array is rotated
-      // Target is before the pivot
-      if (target >= nums[low]) {
-        if (nums[low] === target) {
-          return low;
-        } else if (nums[mid] === target) {
-          return mid;
-        } else if (nums[mid] >= nums[low] && nums[mid] < target) {
-          low = mid + 1;
-        } else {
-          high = mid - 1;
-        }
-      } else {
-        // Target is after the pivot
-        if (nums[high] === target) {
-          return high;
-        } else if (nums[mid] === target) {
-          return mid;
-        } else if (nums[mid] <= nums[high] && nums[mid] > target) {
-          high = mid - 1;
-        } else {
-          low = mid + 1;
-        }
       }
     }
   }
@@ -99,33 +83,53 @@ function search1(nums: number[], target: number): number {
 function search2(nums: number[], target: number): number {
   const n = nums.length;
 
+  // Step 1: Find the pivot (smallest element)
   let low = 0;
   let high = n - 1;
-  while (low <= high) {
-    const mid = low + Math.floor((high - low) / 2);
+  let pivot = low;
 
-    if (nums[mid] === target) {
-      return mid;
+  while (low <= high) {
+    let mid = low + Math.floor((high - low) / 2);
+
+    if (nums[high] >= nums[low]) {
+      if (nums[pivot] > nums[low]) {
+        pivot = low;
+      }
+      break;
     }
 
-    // Target is before the pivot
-    if (target >= nums[low]) {
-      if (nums[mid] < target && nums[mid] >= nums[low]) {
-        low = mid + 1;
-      } else {
-        high = mid - 1;
+    if (nums[low] <= nums[mid]) {
+      if (nums[pivot] > nums[low]) {
+        pivot = low;
       }
+
+      low = mid + 1;
     } else {
-      // Target is after the pivot
-      if (nums[mid] > target && nums[mid] <= nums[high]) {
-        high = mid - 1;
-      } else {
-        low = mid + 1;
+      if (nums[pivot] > nums[mid]) {
+        pivot = mid;
       }
+
+      high = mid - 1;
     }
   }
 
-  return -1;
+  // Step 2: Perform binary search on the appropriate half
+  low = 0;
+  high = n - 1;
+  while (low <= high) {
+    const mid = low + Math.floor((high - low) / 2);
+    const realMid = (mid + pivot) % n; // Adjust mid for rotation
+
+    if (nums[realMid] === target) {
+      return realMid;
+    } else if (nums[realMid] < target) {
+      low = mid + 1;
+    } else {
+      high = mid - 1;
+    }
+  }
+
+  return -1; // Target not found
 }
 
 /**
