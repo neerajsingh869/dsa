@@ -264,16 +264,17 @@ function findIndex(
  * @param target
  * TC = O(log(n))
  * SC = O(1)
+ * Optimal solution (Interview - Easy to explain)
  * @returns
  */
-function searchRange(nums: number[], target: number): number[] {
-  const firstIndex = getIndex(nums, target, true);
-  const lastIndex = getIndex(nums, target, false);
+function searchRange5(nums: number[], target: number): number[] {
+  const firstIndex = getIndex1(nums, target, true);
+  const lastIndex = getIndex1(nums, target, false);
 
   return [firstIndex, lastIndex];
 }
 
-function getIndex(nums: number[], target: number, findFirst: boolean): number {
+function getIndex1(nums: number[], target: number, findFirst: boolean): number {
   const n = nums.length;
 
   let index = -1;
@@ -294,4 +295,45 @@ function getIndex(nums: number[], target: number, findFirst: boolean): number {
   }
 
   return index;
+}
+
+/**
+ * @param nums
+ * @param target
+ * TC = O(log(n))
+ * SC = O(1)
+ * Optimal solution (Interview - Harder to explain than previous solution)
+ * @returns
+ */
+function searchRange6(nums: number[], target: number): number[] {
+  const firstIndex = getIndex2(nums, target, true);
+  const lastIndex = getIndex2(nums, target, false);
+
+  return [firstIndex, lastIndex];
+}
+
+function getIndex2(nums: number[], target: number, findFirst: boolean): number {
+  const n = nums.length;
+
+  let start = 0;
+  let end = n - 1;
+
+  while (start <= end) {
+    const mid = start + Math.floor((end - start) / 2);
+
+    if (nums[mid] > target) {
+      end = mid - 1;
+    } else if (nums[mid] < target) {
+      start = mid + 1;
+    } else {
+      findFirst ? (end = mid - 1) : (start = mid + 1);
+    }
+  }
+
+  // Edge case: When target does not exists in the array
+  if (nums[start] != target && nums[end] != target) {
+    return -1;
+  }
+
+  return findFirst ? start : end;
 }
