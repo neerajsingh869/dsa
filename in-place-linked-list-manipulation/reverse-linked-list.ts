@@ -1,3 +1,5 @@
+import { ListNode } from "../utils/linked-list-function-way";
+
 /**
  * PROBLEM LINK: https://leetcode.com/problems/reverse-linked-list/
  * 
@@ -33,9 +35,27 @@
   -1000 <= ListNode.val <= 100
  */
 
-interface ListNode {
-  val: number;
-  next: ListNode | null;
+/**
+ * @param head
+ * TC = O(n)
+ * SC = O(n)
+ * Recursive approach
+ * @returns
+ */
+function reverseList1(head: ListNode | null): ListNode | null {
+  let newHead: ListNode | null = null;
+  let curr = head;
+  while (curr != null) {
+    const newNode: ListNode = { val: curr.val, next: null };
+    // Insert new node at head
+    newNode.next = newHead;
+    // Update head of reversed linked list
+    newHead = newNode;
+
+    curr = curr.next;
+  }
+
+  return newHead;
 }
 
 /**
@@ -45,12 +65,12 @@ interface ListNode {
  * Recursive approach
  * @returns
  */
-function reverseList1(head: ListNode | null): ListNode | null {
+function reverseList2(head: ListNode | null): ListNode | null {
   if (head === null || head.next === null) {
     return head;
   }
 
-  let newHead = reverseList1(head.next);
+  let newHead = reverseList2(head.next);
 
   head.next.next = head;
   head.next = null;
@@ -65,16 +85,16 @@ function reverseList1(head: ListNode | null): ListNode | null {
  * Iterative approach (Best approach to solve the problem)
  * @returns
  */
-function reverseList2(head: ListNode | null): ListNode | null {
-  let currentNode = head;
-  let previousNode: ListNode | null = null;
-  while (currentNode != null) {
-    const nextNode = currentNode.next;
+function reverseList3(head: ListNode | null): ListNode | null {
+  let curr = head;
+  let prev: ListNode | null = null;
+  while (curr != null) {
+    const next = curr.next;
 
-    currentNode.next = previousNode;
-    previousNode = currentNode;
-    currentNode = nextNode;
+    curr.next = prev;
+    prev = curr;
+    curr = next;
   }
 
-  return previousNode;
+  return prev;
 }
