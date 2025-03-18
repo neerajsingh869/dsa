@@ -25,12 +25,44 @@
   nums[i] is either 0, 1, or 2.
  */
 
-/**
+  /**
  * @param nums
  * TC = O(n)
  * SC = O(1)
  */
 function sortColors(nums: number[]): void {
+  const n = nums.length;
+
+  let end0 = 0;
+  let end2 = n - 1;
+  let current = 0;
+
+  while (current <= end2) {
+    if (nums[current] === 0) {
+      let temp = nums[current];
+      nums[current] = nums[end0];
+      nums[end0] = temp;
+
+      current++;
+      end0++;
+    } else if (nums[current] === 2) {
+      let temp = nums[current];
+      nums[current] = nums[end2];
+      nums[end2] = temp;
+
+      end2--;
+    } else {
+      current++;
+    }
+  }
+}
+
+/**
+ * @param nums
+ * TC = O(n)
+ * SC = O(1)
+ */
+function sortColors2(nums: number[]): void {
   const n = nums.length;
 
   let low = 0; // Pointer where next 0 will be placed
@@ -56,6 +88,30 @@ function sortColors(nums: number[]): void {
   }
 }
 
+/**
+ * @param nums
+ * TC = O(n)
+ * SC = O(1)
+ * Optimal solution (Interview)
+ */
+function sortColors3(nums: number[]): void {
+  const n = nums.length;
+
+  let end0 = 0;
+  let end2 = n - 1;
+  let current = 0;
+
+  while (current <= end2) {
+    if (nums[current] === 0) {
+      [nums[current++], nums[end0++]] = [nums[end0], nums[current]];
+    } else if (nums[current] === 2) {
+      [nums[current], nums[end2--]] = [nums[end2], nums[current]];
+    } else {
+      current++;
+    }
+  }
+}
+
 // Driver code
 const inputs = [
   [0, 1, 0],
@@ -70,7 +126,7 @@ for (let i = 0; i < inputs.length; i++) {
     i + 1 + ".\tcolors:",
     inputs[i],
     "\n\n\tThe sorted array is:",
-    sortColors(inputs[i])
+    sortColors3(inputs[i])
   );
 
   console.log("-".repeat(100));
