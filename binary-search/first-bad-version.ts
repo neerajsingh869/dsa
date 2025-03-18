@@ -32,7 +32,7 @@
 
 /**
  * @param isBadVersion
- * TC = O(log(n)) assuming TC of isBadVersion(version) is O(1)
+ * TC = O(log(n))
  * SC = O(1)
  * @returns
  */
@@ -88,6 +88,7 @@ function firstBadVersion2(isBadVersion: any) {
  * @param isBadVersion
  * TC = O(log(n))
  * SC = O(1)
+ * Optimal solution (Interview)
  * @returns
  */
 function firstBadVersion3(isBadVersion: any) {
