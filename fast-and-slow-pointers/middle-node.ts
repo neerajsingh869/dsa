@@ -33,7 +33,38 @@ import {
  * SC = O(1)
  * @returns
  */
-function middleNode(head: ListNode | null): ListNode | null {
+// Count and traversal approach (requires 2 traversals)
+function middleNode1(head: ListNode | null): ListNode | null {
+  if (head === null) {
+    return null; // Empty list
+  }
+
+  // Step 1: Count the number of nodes
+  let count = 0;
+  let curr: ListNode | null = head;
+  while (curr !== null) {
+    count++;
+    curr = curr.next;
+  }
+
+  // Step 2: Traverse to the middle node
+  let mid = Math.floor(count / 2);
+  curr = head;
+  for (let i = 0; i < mid; i++) {
+    curr = curr.next!;
+  }
+
+  return curr; // Middle node
+}
+
+/**
+ * @param head
+ * TC = O(n)
+ * SC = O(1)
+ * Optimal solution (Interview)
+ * @returns
+ */
+function middleNode2(head: ListNode | null): ListNode | null {
   let fast = head;
   let slow = head;
 
@@ -58,7 +89,7 @@ for (let i = 0; i < inputs.length; i++) {
   const inputLinkedList = arrayToLinkedList(inputs[i]);
   console.log(i + 1 + ".\tLinked List:\t\t", printLinkedList(inputLinkedList));
 
-  let result = middleNode(inputLinkedList);
+  let result = middleNode2(inputLinkedList);
 
   console.log("\tMiddle Node:\t", result!.val);
   console.log("-".repeat(100));
