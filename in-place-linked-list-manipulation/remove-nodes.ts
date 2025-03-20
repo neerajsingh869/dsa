@@ -1,3 +1,5 @@
+import { ListNode } from "../utils/linked-list-function-way";
+
 /**
  * PROBLEM LINK: https://leetcode.com/problems/remove-nodes-from-linked-list/description/
  * 
@@ -39,10 +41,10 @@ function reverseList(head: ListNode | null): ListNode | null {
 }
 
 /**
- * @param head 
+ * @param head
  * TC = O(n)
  * SC = O(n)
- * @returns 
+ * @returns
  */
 function removeNodes1(head: ListNode | null): ListNode | null {
   let curr = head;
@@ -67,25 +69,25 @@ function removeNodes1(head: ListNode | null): ListNode | null {
 }
 
 /**
- * @param head 
+ * @param head
  * TC = O(n)
  * SC = O(n)
- * @returns 
+ * @returns
  */
 function removeNodes2(head: ListNode | null): ListNode | null {
   if (head === null) {
-      return head;
+    return head;
   }
 
   const tempHead = removeNodes2(head.next);
   head.next = tempHead;
 
   if (tempHead === null || head.val >= tempHead.val) {
-      return head;
+    return head;
   }
 
   return head.next;
-};
+}
 
 /**
  * @param head
