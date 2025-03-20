@@ -99,7 +99,7 @@ function removeNodes3(head: ListNode | null): ListNode | null {
   // Reverse the linked list
   const newHead = reverseList(head);
 
-  let dummy = new ListNode(-Infinity);
+  let dummy: ListNode = { val: -Infinity, next: null };
   dummy.next = newHead;
 
   // Filter nodes
