@@ -1,11 +1,5 @@
 import printMatrix from "../utils/print-matrix";
 
-// function printMatrix(mat: number[][]): void {
-//     for (const row of mat) {
-//         console.log('\t' + row.join(' '));
-//     }
-// }
-
 function setMatrixZeros1(mat: number[][]) {
 	const rows = mat.length;
 	const cols = mat[0].length;
