@@ -1,3 +1,3 @@
-export default function arrayToString(array: number[]): string {
+export default function arrayToString<T>(array: T[]): string {
     return '[' + array.join(', ') + ']';
 }
