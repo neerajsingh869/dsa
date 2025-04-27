@@ -84,3 +84,16 @@ function isValid2(s: string): boolean {
 
   return stack.length === 0;
 }
+
+// Driver code
+function main() {
+  const inputs = ["(){}[]", "{}[]{}[{}])", "(){[{()}]}", "))){{}}}]]", "{[()}"];
+
+  for (let i = 0; i < inputs.length; i++) {
+      console.log(`${i + 1}. Input string = ${inputs[i]}`);
+      console.log(`   Valid parentheses = ${isValid2(inputs[i])}`);
+      console.log("-".repeat(100));
+  }
+}
+
+main();
