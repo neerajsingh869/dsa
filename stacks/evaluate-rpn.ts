@@ -55,17 +55,17 @@ function evalRPN(tokens: string[]): number {
 
   for (const token of tokens) {
     if (token === "+" || token === "-" || token === "*" || token === "/") {
-      const operator1 = stack.pop() as number;
-      const operator2 = stack.pop() as number;
+      const operand1 = stack.pop() as number;
+      const operand2 = stack.pop() as number;
 
       if (token === "+") {
-        stack.push(operator2 + operator1);
+        stack.push(operand2 + operand1);
       } else if (token === "-") {
-        stack.push(operator2 - operator1);
+        stack.push(operand2 - operand1);
       } else if (token === "*") {
-        stack.push(operator2 * operator1);
+        stack.push(operand2 * operand1);
       } else if (token === "/") {
-        const value = operator2 / operator1;
+        const value = operand2 / operand1;
         stack.push(value >= 0 ? Math.floor(value) : Math.ceil(value));
       }
     } else {
