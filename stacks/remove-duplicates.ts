@@ -38,13 +38,13 @@ function removeDuplicates1(s: string): string {
 
   for (const char of s) {
     if (stack.length > 0 && stack[stack.length - 1] === char) {
-      stack.pop();
+      stack.pop();  // Found duplicate pair
     } else {
-      stack.push(char);
+      stack.push(char); // New unique character
     }
   }
 
-  return stack.join("");
+  return stack.join("");  // Convert stack to result string
 }
 
 /**
