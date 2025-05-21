@@ -11,18 +11,18 @@ class QueueNode<T> {
 export class Queue<T> {
   head: QueueNode<T> | null;
   tail: QueueNode<T> | null;
-  size: number;
+  private _size: number;
 
   constructor() {
     this.head = null;
     this.tail = null;
-    this.size = 0;
+    this._size = 0;
   }
 
   // Method to insert node at the end
   enqueue(value: T) {
     const newNode = new QueueNode<T>(value);
-    this.size++;
+    this._size++;
 
     if (this.head === null) {
       this.head = newNode;
@@ -39,11 +39,11 @@ export class Queue<T> {
       return null;
     }
 
-    this.size--;
+    this._size--;
     const dequeuedValue = this.head!.val;
     this.head = this.head!.next;
 
-    if (this.size === 0) {
+    if (this._size === 0) {
       this.tail = null;
     }
 
@@ -52,11 +52,28 @@ export class Queue<T> {
 
   // Method to get top element
   peek(): T | null {
-    return (this.head === null ? null : this.head.val);
+    return this.head === null ? null : this.head.val;
   }
 
   // Method to check if queue is empty
   isEmpty(): boolean {
-    return this.size === 0;
+    return this._size === 0;
+  }
+
+  size(): number {
+    return this._size;
+  }
+
+  toString() {
+    if (this.head === null) return "[]";
+
+    let result = "[";
+    let current = this.head;
+    while (current.next !== null) {
+      result += current.val + ",";
+      current = current.next;
+    }
+    result += current.val + "]";
+    return result;
   }
 }
